@@ -2,14 +2,23 @@ steps:
   # build the container image
 - name: "gcr.io/cloud-builders/docker"
   args: ["build", "-t", "gcr.io/project-id/image:tag", "."]
+  id: 'Build Docker Image'
+
   # push container image
 - name: "gcr.io/cloud-builders/docker"
   args: ["push", "gcr.io/project-id/image:tag"]
+  id: 'Push Docker Image'
+  
   # deploy container image to GKE
 - name: "gcr.io/cloud-builders/gke-deploy"
+  entrypoint: 'sh'
   args:
-  - run
-  - --filename=kubernetes-resource-file
-  - --image=gcr.io/project-id/image:tag
-  - --location=location
-  - --cluster=cluster
+  - -xe
+  - -c
+  - |
+    gcloud deploy apply --file deploy/pipeline.yaml --region=us-central1
+    gcloud deploy apply --file deploy/dev.yaml --region=us-central1
+    gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=gke-cicd-pipeline --region=us-central1 --skaffold-file=skaffold.yaml
+
+options:
+  logging: CLOUD_LOGGING_ONLY
