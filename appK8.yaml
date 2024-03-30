@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-container
-          image: us-central1-docker.pkg.dev/github-w2/gke-repo/custom-cicd-build
+          image: gcr.io/github-w2/gke-repo/custom-cicd-build
           ports:
             - containerPort: 80
 
