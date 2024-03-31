@@ -36,4 +36,6 @@ RUN export PORT=80
 # Bundle app source
 COPY . .
 EXPOSE 80
-CMD [ "node", "server.js" ]
+##CMD [ "node", "server.js" ]
+CMD ["npm", "run", "start"]
+CMD [ "export", "PORT=80" ]
