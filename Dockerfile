@@ -27,8 +27,7 @@ WORKDIR /usr/src/app
 COPY package*.json /usr/src/app
 COPY app.js /usr/src/app
 RUN npm install
-RUN npm run start
-RUN export PORT=80
+
 
 # If you are building your code for production
 # RUN npm ci --only=production
