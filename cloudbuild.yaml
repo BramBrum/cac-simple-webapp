@@ -14,7 +14,8 @@ steps:
   - -xe
   - -c
   - |
-    TIMESTAMP=$(date '+%Y%m%d%H%M%S')
+    gcloud deploy apply --file deploy/pipeline.yaml --region=us-central1
+    gcloud deploy apply --file deploy/dev.yaml --region=us-central1
     gcloud deploy releases create "app-release-${SHORT_SHA}" --delivery-pipeline=gke-dev-pipeline --region=us-central1 --skaffold-file=skaffold.yaml
 
 options:
