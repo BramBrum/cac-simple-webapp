@@ -14,7 +14,7 @@ steps:
   - -xe
   - -c
   - |
-    gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=staging-pipeline --region=us-central1 --from-k8s-manifest=./appK8.yaml
+    gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=gke-pipeline-dev --region=us-central1 --from-k8s-manifest=./appK8.yaml
 
 options:
   logging: CLOUD_LOGGING_ONLY
