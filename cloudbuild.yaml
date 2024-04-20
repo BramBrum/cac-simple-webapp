@@ -14,7 +14,8 @@ steps:
   - -xe
   - -c
   - |
-    gcloud deploy releases create 'app-release-dev-$(date +%s)' --delivery-pipeline=gke-pipeline-dev --region=us-central1 --from-k8s-manifest=./appK8.yaml
+    TIMESTAMP=$(date '+%Y%m%d%H%M%S')
+    gcloud deploy releases create "app-release-dev-$TIMESTAMP" --delivery-pipeline=gke-pipeline-dev --region=us-central1 --from-k8s-manifest=./appK8.yaml
 
 options:
   logging: CLOUD_LOGGING_ONLY
