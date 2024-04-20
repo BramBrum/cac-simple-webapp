@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: my-container
-          image: gcr.io/github-w2/staging-app
+          image: gcr.io/github-w2/staging-app:latest
           ports:
             - containerPort: 80
 
