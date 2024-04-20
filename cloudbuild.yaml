@@ -1,11 +1,11 @@
 steps:
   # Bouw de Docker-image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io/github-w2/staging-app:$COMMIT_SHA", "."]
+  args: ["build", "-t", "gcr.io/github-w2/staging-app", "."]
   
   # Push de Docker-image naar GCR
 - name: "gcr.io/cloud-builders/docker"
-  args: ["push", "gcr.io/github-w2/staging-app:$COMMIT_SHA"]
+  args: ["push", "gcr.io/github-w2/staging-app"]
 
 
 - name: "google/cloud-sdk:latest"
@@ -14,7 +14,7 @@ steps:
   - -xe
   - -c
   - |
-    gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=gke-pipeline-dev --region=us-central1 --from-k8s-manifest=./appK8.yaml
+    gcloud deploy releases create 'app-release-dev' --delivery-pipeline=gke-pipeline-dev --region=us-central1 --from-k8s-manifest=./appK8.yaml
 
 options:
   logging: CLOUD_LOGGING_ONLY
