@@ -1,12 +1,12 @@
 steps:
   # build the container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io/github-w2/gke-repo/custom-cicd-build", "."]
+  args: ["build", "-t", "gcr.io/github-w2/gke-repo/custom-cicd-staging-build", "."]
   id: 'Build Docker Image'
 
   # push container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["push", "gcr.io/github-w2/gke-repo/custom-cicd-build"]
+  args: ["push", "gcr.io/github-w2/gke-repo/custom-cicd-staging-build"]
   id: 'Push Docker Image'
   
   # deploy container image to GKE
@@ -16,9 +16,6 @@ steps:
   - -xe
   - -c
   - |
-    gcloud deploy apply --file deploy/pipeline.yaml --region=us-central1
-    gcloud deploy apply --file deploy/dev.yaml --region=us-central1
-    gcloud deploy apply --file deploy/prod.yaml --region=us-central1
     gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=gke-cicd-pipeline --region=us-central1 --from-k8s-manifest=./appK8.yaml
 
 options:
