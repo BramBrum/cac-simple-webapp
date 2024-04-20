@@ -1,22 +1,15 @@
 steps:
-  # build the container image
+  # Bouw de Docker-image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io/github-w2/gke-repo/custom-cicd-staging-build", "."]
-  id: 'Build Docker Image'
-
-  # push container image
-- name: "gcr.io/cloud-builders/docker"
-  args: ["push", "gcr.io/github-w2/gke-repo/custom-cicd-staging-build"]
-  id: 'Push Docker Image'
+  args: ["build", "-t", "gcr.io/github-w2/my-app:$COMMIT_SHA", "."]
   
-  # deploy container image to GKE
-- name: "google/cloud-sdk:latest"
-  entrypoint: 'sh'
-  args:
-  - -xe
-  - -c
-  - |
-    gcloud deploy releases create 'app-release-${SHORT_SHA}' --delivery-pipeline=staging-pipeline --region=us-central1 --from-k8s-manifest=./appK8.yaml
+  # Push de Docker-image naar GCR
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "gcr.io/github-w2/my-app:$COMMIT_SHA"]
+
+  # Implementeer de nieuwe Docker-image met de staging-pipeline
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["deploy", "my-app-staging", "--image=gcr.io/github-w2/my-app:$COMMIT_SHA", "--delivery-pipeline=staging-pipeline"]
 
 options:
   logging: CLOUD_LOGGING_ONLY
