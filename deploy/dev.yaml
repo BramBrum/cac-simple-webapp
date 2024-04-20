@@ -6,4 +6,4 @@ metadata:
   labels: {}
 description: dev
 gke:
-  cluster: projects/github-w2/locations/us-central1-c/clusters/scooter-app-ta
+  cluster: projects/github-w2/locations/us-central1-a/clusters/scooter-app-ta
