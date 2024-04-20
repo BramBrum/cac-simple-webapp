@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: my-container
-          image: gcr.io/github-w2/gke-repo/custom-cicd-staging-build
+          image: gcr.io/github-w2/staging-app
           ports:
             - containerPort: 80
 
