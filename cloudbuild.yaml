@@ -1,11 +1,11 @@
 steps:
   # Bouw de Docker-image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io/github-w2/staging-app", "."]
+  args: ["build", "-t", "gcr.io/github-w2/production-app", "."]
   
   # Push de Docker-image naar GCR
 - name: "gcr.io/cloud-builders/docker"
-  args: ["push", "gcr.io/github-w2/staging-app"]
+  args: ["push", "gcr.io/github-w2/production-app"]
 
 
 - name: "google/cloud-sdk:latest"
@@ -15,8 +15,8 @@ steps:
   - -c
   - |
     gcloud deploy apply --file deploy/pipeline.yaml --region=us-central1
-    gcloud deploy apply --file deploy/dev.yaml --region=us-central1
-    gcloud deploy releases create "app-release-${SHORT_SHA}" --delivery-pipeline=gke-dev-pipeline --region=us-central1 --skaffold-file=skaffold.yaml
+    gcloud deploy apply --file deploy/prod.yaml --region=us-central1
+    gcloud deploy releases create "app-release-prod-${SHORT_SHA}" --delivery-pipeline=gke-prod-pipeline --region=us-central1 --skaffold-file=skaffold.yaml
 
 options:
   logging: CLOUD_LOGGING_ONLY

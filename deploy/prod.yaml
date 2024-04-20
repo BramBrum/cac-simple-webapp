@@ -1,0 +1,9 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: prod
+  annotations: {}
+  labels: {}
+description: prod
+gke:
+  cluster: projects/github-w2/locations/us-central1-a/clusters/scooter-app-p

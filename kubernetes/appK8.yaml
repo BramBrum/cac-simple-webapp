@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-deployment
+  name: prod-app
 spec:
   replicas: 1
   selector:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-container
-          image: gcr.io/github-w2/staging-app:latest
+          image: gcr.io/github-w2/production-app:latest
           ports:
             - containerPort: 80
 
@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: prod-service
 spec:
   selector:
     app: my-app
