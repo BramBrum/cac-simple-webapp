@@ -9,7 +9,7 @@ steps:
 
   # Implementeer de nieuwe Docker-image met de staging-pipeline
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ["deploy", "my-app-staging", "--image=gcr.io/github-w2/my-app:$COMMIT_SHA", "--delivery-pipeline=staging-pipeline", "--target=staging-name-target"]
+  args: ["deploy", "staging", "--image=gcr.io/github-w2/my-app:$COMMIT_SHA", "--delivery-pipeline=staging-pipeline", "--target=staging-name-target"]
 
 options:
   logging: CLOUD_LOGGING_ONLY
